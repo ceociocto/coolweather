@@ -40,7 +40,7 @@ public class CoolWeatherDB {
 		if(province != null){
 			ContentValues values = new ContentValues();
 			values.put("province_name", province.getProvinceName());
-			values.put("province_name", province.getProvinceCode());
+			values.put("province_code", province.getProvinceCode());
 			db.insert("Province",null,values);
 		}
 	}
