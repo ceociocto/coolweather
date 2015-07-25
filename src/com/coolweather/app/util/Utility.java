@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -82,13 +83,16 @@ public class Utility {
 	public static void handleWeatherResponse(Context context, String response){
 		try{
 			JSONObject jsonObject = new JSONObject(response);
-			JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
-			String cityName = weatherInfo.getString("city");
-			String weatherCode = weatherInfo.getString("cityid");
-			String temp1 = weatherInfo.getString("temp1");
-			String temp2 = weatherInfo.getString("temp2");
-			String weatherDesp = weatherInfo.getString("weather");
-			String publishTime = weatherInfo.getString("ptime");
+			//JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
+			JSONArray data =jsonObject.getJSONArray("forecast");
+			JSONObject weatherInfo = data.getJSONObject(0);
+			String cityName = jsonObject.getString("city");
+			//String cityName = weatherInfo.getString("city");
+			String weatherCode = jsonObject.getString("city");
+			String temp1 = weatherInfo.getString("high");
+			String temp2 = weatherInfo.getString("low");
+			String weatherDesp = weatherInfo.getString("type");
+			String publishTime = weatherInfo.getString("date");
 			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
 		}catch (JSONException e){
 			e.printStackTrace();
